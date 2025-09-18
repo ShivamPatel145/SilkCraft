@@ -25,8 +25,10 @@ import {
   ArrowUpDown,
 } from "lucide-react";
 import { products, categories, colors, priceRanges, type Product } from "@/data/products";
+import { useCartWithNavigation } from "@/hooks/useCartWithNavigation";
 
 const Catalog = () => {
+  const { addItem } = useCartWithNavigation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
@@ -109,9 +111,10 @@ const Catalog = () => {
     setSearchQuery("");
   };
 
-  const handleAddToCart = (product: Product, quantity: number) => {
-    // TODO: Implement cart functionality
-    console.log(`Added ${quantity} of ${product.name} to cart`);
+  const handleAddToCart = async (product: Product, quantity: number) => {
+    for (let i = 0; i < quantity; i++) {
+      await addItem(product);
+    }
   };
 
   const activeFiltersCount = selectedCategories.length + selectedColors.length + 
@@ -439,7 +442,7 @@ function FilterSidebar({
 interface ProductCardProps {
   product: Product;
   viewMode: "grid" | "list";
-  onAddToCart: (product: Product, quantity: number) => void;
+  onAddToCart: (product: Product, quantity: number) => Promise<void>;
 }
 
 function ProductCard({ product, viewMode, onAddToCart }: ProductCardProps) {
@@ -538,7 +541,7 @@ function ProductCard({ product, viewMode, onAddToCart }: ProductCardProps) {
                 />
                 
                 <Button
-                  onClick={() => onAddToCart(product, 1)}
+                  onClick={async () => await onAddToCart(product, 1)}
                   disabled={!product.inStock}
                   className="gradient-primary text-primary-foreground"
                 >
@@ -675,7 +678,7 @@ function ProductCard({ product, viewMode, onAddToCart }: ProductCardProps) {
           />
           <Button
             size="sm"
-            onClick={() => onAddToCart(product, 1)}
+            onClick={async () => await onAddToCart(product, 1)}
             disabled={!product.inStock}
             className="flex-1 gradient-primary text-primary-foreground"
           >

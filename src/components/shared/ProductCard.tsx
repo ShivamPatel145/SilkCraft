@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { useCartWithNavigation } from "@/hooks/useCartWithNavigation";
+import { Product } from "@/data/products";
 import {
   Heart,
   ShoppingCart,
@@ -10,20 +12,7 @@ import {
 } from "lucide-react";
 
 interface ProductCardProps {
-  product: {
-    id: number;
-    name: string;
-    price: number;
-    originalPrice?: number;
-    fabric: string;
-    color: string;
-    rating: number;
-    reviews: number;
-    image: string;
-    isNew?: boolean;
-    inStock: boolean;
-    discount?: number;
-  };
+  product: Product;
   showQuickActions?: boolean;
   variant?: "grid" | "list";
   className?: string;
@@ -35,6 +24,12 @@ const ProductCard = ({
   variant = "grid",
   className = "" 
 }: ProductCardProps) => {
+  const { addItem } = useCartWithNavigation();
+  
+  const handleAddToCart = async () => {
+    await addItem(product);
+  };
+
   const discountPercentage = product.originalPrice 
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -45,7 +40,7 @@ const ProductCard = ({
         <div className="flex">
           <div className="relative w-48 h-32 overflow-hidden">
             <img
-              src={product.image}
+              src={product.images[0]}
               alt={product.name}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -108,6 +103,7 @@ const ProductCard = ({
                     size="sm"
                     disabled={!product.inStock}
                     className="opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={handleAddToCart}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
                     Add to Cart
@@ -134,7 +130,7 @@ const ProductCard = ({
       <div className="relative overflow-hidden">
         <Link to={`/product/${product.id}`}>
           <img
-            src={product.image}
+            src={product.images[0]}
             alt={product.name}
             className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
           />
@@ -175,6 +171,7 @@ const ProductCard = ({
               size="sm"
               className="w-full"
               disabled={!product.inStock}
+              onClick={handleAddToCart}
             >
               <ShoppingCart className="w-4 h-4 mr-2" />
               {product.inStock ? "Add to Cart" : "Out of Stock"}

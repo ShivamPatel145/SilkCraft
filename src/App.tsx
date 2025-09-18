@@ -53,47 +53,47 @@ const AuthRoute = ({ children }: { children: React.ReactNode }) => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <AuthProvider>
-        <CartProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="/catalog/:category" element={<Catalog />} />
-            
-            {/* Protected Routes */}
-            <Route path="/cart" element={
-              <ProtectedRoute>
-                <Cart />
-              </ProtectedRoute>
-            } />
-            <Route path="/checkout" element={
-              <ProtectedRoute>
-                <Checkout />
-              </ProtectedRoute>
-            } />
-            
-            {/* Auth Routes (redirect if already logged in) */}
-            <Route path="/login" element={
-              <AuthRoute>
-                <Login />
-              </AuthRoute>
-            } />
-            <Route path="/register" element={
-              <AuthRoute>
-                <Register />
-              </AuthRoute>
-            } />
-            
-            {/* Catch all route */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          </BrowserRouter>
-        </CartProvider>
-      </AuthProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <CartProvider>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<Index />} />
+              <Route path="/catalog" element={<Catalog />} />
+              <Route path="/catalog/:category" element={<Catalog />} />
+              
+              {/* Protected Routes */}
+              <Route path="/cart" element={
+                <ProtectedRoute>
+                  <Cart />
+                </ProtectedRoute>
+              } />
+              <Route path="/checkout" element={
+                <ProtectedRoute>
+                  <Checkout />
+                </ProtectedRoute>
+              } />
+              
+              {/* Auth Routes (redirect if already logged in) */}
+              <Route path="/login" element={
+                <AuthRoute>
+                  <Login />
+                </AuthRoute>
+              } />
+              <Route path="/register" element={
+                <AuthRoute>
+                  <Register />
+                </AuthRoute>
+              } />
+              
+              {/* Catch all route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </CartProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );

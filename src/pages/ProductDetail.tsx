@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useCartWithNavigation } from "@/hooks/useCartWithNavigation";
+import { Product } from "@/data/products";
 import { 
   Star, 
   Heart, 
@@ -21,9 +23,46 @@ import {
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const { addItem } = useCartWithNavigation();
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
+
+  const handleAddToCart = async () => {
+    const productToAdd: Product = {
+      id: parseInt(id || "1"),
+      name: product.name,
+      price: currentVariant.price,
+      originalPrice: currentVariant.mrp,
+      fabric: product.specifications.Fabric,
+      color: currentVariant.color,
+      category: product.category,
+      subcategory: "Silk Sarees",
+      rating: product.rating,
+      reviews: product.reviewCount,
+      images: product.images,
+      description: product.description,
+      features: product.features,
+      specifications: {
+        fabric: product.specifications.Fabric,
+        weave: product.specifications.Work,
+        length: "6.5m",
+        width: "1.15m",
+        blousePiece: true,
+        careInstructions: [product.specifications.Care],
+        origin: product.specifications.Origin
+      },
+      isNew: false,
+      inStock: currentVariant.stock > 0,
+      stockQuantity: currentVariant.stock,
+      tags: [product.specifications.Fabric, currentVariant.color],
+      discount: currentVariant.mrp ? Math.round(((currentVariant.mrp - currentVariant.price) / currentVariant.mrp) * 100) : undefined
+    };
+    
+    for (let i = 0; i < quantity; i++) {
+      await addItem(productToAdd);
+    }
+  };
 
   // Mock product data - replace with API call
   const product = {
@@ -187,6 +226,7 @@ const ProductDetail = () => {
                   className="flex-1" 
                   size="lg"
                   disabled={currentVariant.stock === 0}
+                  onClick={handleAddToCart}
                 >
                   <ShoppingCart className="w-4 h-4 mr-2" />
                   Add to Cart

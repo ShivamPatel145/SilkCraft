@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { useCartWithNavigation } from "@/hooks/useCartWithNavigation";
+import { Product } from "@/data/products";
 import {
   Heart,
   ShoppingCart,
@@ -67,6 +69,42 @@ const sampleSarees = [
 ];
 
 const ProductShowcase = () => {
+  const { addItem } = useCartWithNavigation();
+
+  const handleAddToCart = async (saree: typeof sampleSarees[0]) => {
+    // Convert saree to Product format
+    const productToAdd: Product = {
+      id: saree.id,
+      name: saree.name,
+      price: saree.price,
+      originalPrice: saree.originalPrice,
+      fabric: saree.fabric,
+      color: saree.color,
+      category: "Sarees",
+      subcategory: "Silk Sarees",
+      rating: saree.rating,
+      reviews: saree.reviews,
+      images: [saree.image],
+      description: `Beautiful ${saree.fabric} saree in ${saree.color}`,
+      features: ["Handwoven", "Premium Quality", "Traditional Design"],
+      specifications: {
+        fabric: saree.fabric,
+        weave: "Traditional",
+        length: "6.5m",
+        width: "1.15m",
+        blousePiece: true,
+        careInstructions: ["Dry clean only", "Store in cool dry place"],
+        origin: "India"
+      },
+      isNew: saree.isNew,
+      inStock: saree.inStock,
+      stockQuantity: 10,
+      tags: [saree.fabric, saree.color],
+      discount: saree.originalPrice ? Math.round(((saree.originalPrice - saree.price) / saree.originalPrice) * 100) : undefined
+    };
+    
+    await addItem(productToAdd);
+  };
   return (
     <section className="py-20 gradient-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -212,6 +250,7 @@ const ProductShowcase = () => {
                         : "bg-muted text-muted-foreground cursor-not-allowed"
                     }`}
                     disabled={!saree.inStock}
+                    onClick={() => handleAddToCart(saree)}
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
                     {saree.inStock ? "Add to Cart" : "Notify When Available"}

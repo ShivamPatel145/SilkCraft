@@ -1,5 +1,8 @@
 import React, { createContext, useReducer, ReactNode } from 'react';
 import { Product } from '@/data/products';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
 
 export interface CartItem {
   product: Product;
@@ -101,7 +104,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 
 interface CartContextType {
   state: CartState;
-  addItem: (product: Product) => void;
+  addItem: (product: Product, onLoginRequired?: () => void) => Promise<boolean>;
   removeItem: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
   clearCart: () => void;
@@ -116,9 +119,28 @@ export const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+  const { user } = useAuth();
+  const { toast } = useToast();
 
-  const addItem = (product: Product) => {
+  const addItem = async (product: Product, onLoginRequired?: () => void): Promise<boolean> => {
+    if (!user) {
+      if (onLoginRequired) {
+        onLoginRequired();
+      } else {
+        toast({
+          title: "Login Required",
+          description: "Please sign in to add items to your cart",
+        });
+      }
+      return false;
+    }
+
     dispatch({ type: 'ADD_ITEM', payload: product });
+    toast({
+      title: "Added to Cart",
+      description: `${product.name} has been added to your cart`,
+    });
+    return true;
   };
 
   const removeItem = (id: number) => {
