@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -28,10 +29,9 @@ import {
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [userRole, setUserRole] = useState<"customer" | "cashier" | "admin" | null>("customer"); // Mock role
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const { getCartItemCount } = useCart();
+  const { user, isAuthenticated, logout } = useAuth();
 
   type NavigationItem = {
     label: string;
@@ -39,27 +39,8 @@ const Navbar = () => {
     icon?: React.ComponentType<{ className?: string }>;
   };
 
-  const handleLogin = (role: "customer" | "cashier" | "admin") => {
-    setUserRole(role);
-    setIsLoggedIn(true);
-    
-    // Navigate to appropriate dashboard
-    switch (role) {
-      case "admin":
-        navigate("/admin/dashboard");
-        break;
-      case "cashier":
-        navigate("/pos/dashboard");
-        break;
-      default:
-        navigate("/user/dashboard");
-        break;
-    }
-  };
-
   const handleLogout = () => {
-    setUserRole(null);
-    setIsLoggedIn(false);
+    logout();
     navigate("/");
   };
 
@@ -69,11 +50,11 @@ const Navbar = () => {
       { label: "Catalog", href: "/catalog" },
     ];
 
-    if (!isLoggedIn) {
+    if (!isAuthenticated || !user) {
       return baseItems;
     }
 
-    if (userRole === "customer") {
+    if (user.role === "customer") {
       return [
         ...baseItems,
         { label: "Cart", href: "/cart", icon: ShoppingCart },
@@ -82,7 +63,7 @@ const Navbar = () => {
       ];
     }
 
-    if (userRole === "cashier") {
+    if (user.role === "cashier") {
       return [
         ...baseItems,
         { label: "POS", href: "/pos/dashboard", icon: Store },
@@ -90,7 +71,7 @@ const Navbar = () => {
       ];
     }
 
-    if (userRole === "admin") {
+    if (user.role === "admin") {
       return [
         ...baseItems,
         { label: "Admin", href: "/admin/dashboard", icon: Crown },
@@ -184,19 +165,19 @@ const Navbar = () => {
 
           {/* User Actions */}
           <div className="hidden md:flex items-center space-x-3">
-            {userRole && (
+            {user && (
               <Badge variant="outline" className="capitalize font-medium border-primary/20 text-primary bg-primary/5">
                 <Crown className="w-3 h-3 mr-1" />
-                {userRole}
+                {user.role}
               </Badge>
             )}
             
-            {isLoggedIn ? (
+            {isAuthenticated ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="flex items-center space-x-2 hover:bg-primary/5 text-foreground">
                     <User className="w-4 h-4" />
-                    <span>Account</span>
+                    <span>{user?.firstName || 'Account'}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
@@ -221,29 +202,20 @@ const Navbar = () => {
               </DropdownMenu>
             ) : (
               <div className="flex items-center space-x-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="sm" className="border-primary/20 text-primary hover:bg-primary/5 hover:text-primary hover:border-primary/30">
-                      <LogIn className="w-4 h-4 mr-2" />
-                      Login
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => handleLogin("customer")}>
-                      <User className="w-4 h-4 mr-2" />
-                      Customer Login
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => handleLogin("cashier")}>
-                      <Store className="w-4 h-4 mr-2" />
-                      Cashier Login
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => handleLogin("admin")}>
-                      <Crown className="w-4 h-4 mr-2" />
-                      Admin Login
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <Button size="sm" className="gradient-primary text-primary-foreground shadow-elegant hover:shadow-glow transition-smooth" onClick={() => navigate("/register")}>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="border-primary/20 text-primary hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+                  onClick={() => navigate("/login")}
+                >
+                  <LogIn className="w-4 h-4 mr-2" />
+                  Login
+                </Button>
+                <Button 
+                  size="sm" 
+                  className="gradient-primary text-primary-foreground shadow-elegant hover:shadow-glow transition-smooth" 
+                  onClick={() => navigate("/register")}
+                >
                   <UserPlus className="w-4 h-4 mr-2" />
                   Register
                 </Button>
@@ -253,9 +225,9 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
-            {isLoggedIn && userRole && (
+            {isAuthenticated && user && (
               <Badge variant="outline" className="capitalize text-xs border-primary/20 text-primary">
-                {userRole}
+                {user.role}
               </Badge>
             )}
             <Button
@@ -300,7 +272,7 @@ const Navbar = () => {
             })}
             
             <div className="px-4 pt-4 border-t border-border space-y-3">
-              {isLoggedIn ? (
+              {isAuthenticated ? (
                 <div className="space-y-2">
                   <Button 
                     variant="outline" 
@@ -334,12 +306,12 @@ const Navbar = () => {
                     size="sm" 
                     className="w-full justify-start"
                     onClick={() => {
-                      handleLogin("customer");
+                      navigate("/login");
                       setIsMenuOpen(false);
                     }}
                   >
                     <LogIn className="w-4 h-4 mr-2" />
-                    Login as Customer
+                    Login
                   </Button>
                   <Button 
                     variant="hero" 

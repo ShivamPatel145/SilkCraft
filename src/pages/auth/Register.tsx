@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Eye, EyeOff, User, Mail, Lock, Phone, Crown, Store, UserCheck } from "lucide-react";
+import { Eye, EyeOff, User, Mail, Lock, Phone, Crown, Store, UserCheck, ArrowLeft, Sparkles } from "lucide-react";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -141,355 +141,394 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Logo/Header */}
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-block">
-            <div className="flex items-center justify-center space-x-3 mb-2">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-xl flex items-center justify-center shadow-lg">
-                <svg 
-                  className="w-7 h-7 text-white" 
-                  fill="none" 
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    d="M3 12c0-9 9-9 9 0s9-9 9 0-9 9-9 0-9 9-9 0z" 
-                    fill="rgba(255,255,255,0.2)"
-                    stroke="white"
-                    strokeWidth="1"
-                  />
-                  <path 
-                    d="M6 8c3 0 6 2 6 6s3-6 6-6M6 16c3 0 6-2 6-6s3 6 6 6" 
-                    stroke="rgba(255,255,255,0.8)"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="12" cy="12" r="2" fill="white" fillOpacity="0.6"/>
-                </svg>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Background Elements - matching home page */}
+      <div className="absolute inset-0 gradient-subtle"></div>
+      <div className="absolute top-20 left-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/15 rounded-full blur-3xl"></div>
+      
+      <div className="relative flex items-center justify-center min-h-screen p-4">
+        <div className="w-full max-w-lg">
+          {/* Back to Home Button */}
+          <div className="mb-6">
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate("/")}
+              className="text-muted-foreground hover:text-foreground transition-smooth"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </Button>
+          </div>
+
+          {/* Logo/Header */}
+          <div className="text-center mb-10">
+            <Link to="/" className="inline-block">
+              <div className="flex items-center justify-center mb-4">
+                <Sparkles className="w-8 h-8 text-accent mr-3" />
+                <h1 className="text-4xl font-heading font-bold gradient-hero bg-clip-text text-transparent">
                   SilkCraft
                 </h1>
-                <p className="text-xs text-muted-foreground tracking-wide">PREMIUM SAREES</p>
               </div>
-            </div>
-            <p className="text-muted-foreground mt-2">Create your account</p>
-          </Link>
-        </div>
-
-        {/* Registration Form */}
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Create Account</CardTitle>
-            <CardDescription>
-              Enter your details to create a new account
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Name Fields */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName">First Name</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      id="firstName"
-                      name="firstName"
-                      placeholder="First name"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      className={`pl-10 ${errors.firstName ? "border-red-500" : ""}`}
-                      disabled={isLoading}
-                    />
-                  </div>
-                  {errors.firstName && (
-                    <p className="text-xs text-red-500">{errors.firstName}</p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">Last Name</Label>
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    placeholder="Last name"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    className={errors.lastName ? "border-red-500" : ""}
-                    disabled={isLoading}
-                  />
-                  {errors.lastName && (
-                    <p className="text-xs text-red-500">{errors.lastName}</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Email Field */}
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className={`pl-10 ${errors.email ? "border-red-500" : ""}`}
-                    disabled={isLoading}
-                  />
-                </div>
-                {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email}</p>
-                )}
-              </div>
-
-              {/* Phone Field */}
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="phone"
-                    name="phone"
-                    placeholder="+91 9876543210"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className={`pl-10 ${errors.phone ? "border-red-500" : ""}`}
-                    disabled={isLoading}
-                  />
-                </div>
-                {errors.phone && (
-                  <p className="text-sm text-red-500">{errors.phone}</p>
-                )}
-              </div>
-
-              {/* Gender Field */}
-              <div className="space-y-2">
-                <Label>Gender (Optional)</Label>
-                <Select value={formData.gender} onValueChange={(value) => handleSelectChange("gender", value)}>
-                  <SelectTrigger className={errors.gender ? "border-red-500" : ""}>
-                    <SelectValue placeholder="Select gender" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                    <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Account Type/Role Field */}
-              <div className="space-y-2">
-                <Label>Account Type</Label>
-                <Select value={formData.role} onValueChange={(value) => handleSelectChange("role", value)}>
-                  <SelectTrigger className={errors.role ? "border-red-500" : ""}>
-                    <SelectValue placeholder="Select account type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="customer">
-                      <div className="flex items-center space-x-2">
-                        <User className="w-4 h-4" />
-                        <span>Customer - Browse and purchase sarees</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="cashier">
-                      <div className="flex items-center space-x-2">
-                        <Store className="w-4 h-4" />
-                        <span>Cashier - Handle store transactions</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="admin">
-                      <div className="flex items-center space-x-2">
-                        <Crown className="w-4 h-4" />
-                        <span>Admin - Full system access</span>
-                      </div>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.role && (
-                  <p className="text-sm text-red-500">{errors.role}</p>
-                )}
-              </div>
-
-              {/* Business Name Field - Show only for business/cashier accounts */}
-              {(formData.role === "cashier") && (
-                <div className="space-y-2">
-                  <Label htmlFor="businessName">Business Name</Label>
-                  <div className="relative">
-                    <Store className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      id="businessName"
-                      name="businessName"
-                      placeholder="Enter your business name"
-                      value={formData.businessName}
-                      onChange={handleInputChange}
-                      className={`pl-10 ${errors.businessName ? "border-red-500" : ""}`}
-                      disabled={isLoading}
-                    />
-                  </div>
-                  {errors.businessName && (
-                    <p className="text-sm text-red-500">{errors.businessName}</p>
-                  )}
-                </div>
-              )}
-
-              {/* Admin Code Field - Show only for admin accounts */}
-              {formData.role === "admin" && (
-                <div className="space-y-2">
-                  <Label htmlFor="adminCode">Admin Access Code</Label>
-                  <div className="relative">
-                    <Crown className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      id="adminCode"
-                      name="adminCode"
-                      type="password"
-                      placeholder="Enter admin access code"
-                      value={formData.adminCode}
-                      onChange={handleInputChange}
-                      className={`pl-10 ${errors.adminCode ? "border-red-500" : ""}`}
-                      disabled={isLoading}
-                    />
-                  </div>
-                  {errors.adminCode && (
-                    <p className="text-sm text-red-500">{errors.adminCode}</p>
-                  )}
-                  <p className="text-xs text-muted-foreground">
-                    Contact your system administrator for the admin access code
-                  </p>
-                </div>
-              )}
-
-              {/* Password Fields */}
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Create a password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    className={`pl-10 pr-10 ${errors.password ? "border-red-500" : ""}`}
-                    disabled={isLoading}
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <Eye className="h-4 w-4 text-muted-foreground" />
-                    )}
-                  </Button>
-                </div>
-                {errors.password && (
-                  <p className="text-sm text-red-500">{errors.password}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirm your password"
-                    value={formData.confirmPassword}
-                    onChange={handleInputChange}
-                    className={`pl-10 pr-10 ${errors.confirmPassword ? "border-red-500" : ""}`}
-                    disabled={isLoading}
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <Eye className="h-4 w-4 text-muted-foreground" />
-                    )}
-                  </Button>
-                </div>
-                {errors.confirmPassword && (
-                  <p className="text-sm text-red-500">{errors.confirmPassword}</p>
-                )}
-              </div>
-
-              {/* Terms Agreement */}
-              <div className="space-y-2">
-                <div className="flex items-start space-x-2">
-                  <Checkbox
-                    id="terms"
-                    checked={formData.agreeToTerms}
-                    onCheckedChange={(checked) =>
-                      setFormData(prev => ({ ...prev, agreeToTerms: checked as boolean }))
-                    }
-                    className="mt-1"
-                  />
-                  <Label htmlFor="terms" className="text-sm leading-5">
-                    I agree to the{" "}
-                    <Link to="/terms" className="text-primary hover:underline">
-                      Terms & Conditions
-                    </Link>{" "}
-                    and{" "}
-                    <Link to="/privacy" className="text-primary hover:underline">
-                      Privacy Policy
-                    </Link>
-                  </Label>
-                </div>
-                {errors.agreeToTerms && (
-                  <p className="text-sm text-red-500">{errors.agreeToTerms}</p>
-                )}
-              </div>
-
-              {/* Submit Error */}
-              {errors.submit && (
-                <div className="p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded">
-                  {errors.submit}
-                </div>
-              )}
-
-              {/* Submit Button */}
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Creating Account..." : "Create Account"}
-              </Button>
-            </form>
-
-            {/* Sign In Link */}
-            <div className="mt-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Already have an account?{" "}
-                <Link to="/login" className="text-primary hover:underline">
-                  Sign in
-                </Link>
+              <p className="text-lg text-muted-foreground font-medium">
+                Premium Saree Business Management
               </p>
-            </div>
-          </CardContent>
-        </Card>
+            </Link>
+          </div>
 
-        {/* Footer */}
-        <div className="mt-8 text-center">
-          <p className="text-xs text-muted-foreground">
-            © 2025 SilkCraft. All rights reserved.
-          </p>
+          {/* Registration Form */}
+          <Card className="shadow-elegant border-0 bg-card/80 backdrop-blur-sm">
+            <CardHeader className="space-y-2 text-center pb-8">
+              <CardTitle className="text-3xl font-heading">Create Account</CardTitle>
+              <CardDescription className="text-lg text-muted-foreground">
+                Enter your details to create a new account
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name Fields */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName" className="text-sm font-medium">First Name</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                      <Input
+                        id="firstName"
+                        name="firstName"
+                        placeholder="First name"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        className={`pl-12 h-12 border-2 rounded-xl transition-smooth ${
+                          errors.firstName 
+                            ? "border-destructive focus:border-destructive" 
+                            : "border-border focus:border-primary"
+                        }`}
+                        disabled={isLoading}
+                      />
+                    </div>
+                    {errors.firstName && (
+                      <p className="text-sm text-destructive">{errors.firstName}</p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName" className="text-sm font-medium">Last Name</Label>
+                    <div className="relative">
+                      <Input
+                        id="lastName"
+                        name="lastName"
+                        placeholder="Last name"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        className={`h-12 border-2 rounded-xl transition-smooth ${
+                          errors.lastName 
+                            ? "border-destructive focus:border-destructive" 
+                            : "border-border focus:border-primary"
+                        }`}
+                        disabled={isLoading}
+                      />
+                    </div>
+                    {errors.lastName && (
+                      <p className="text-sm text-destructive">{errors.lastName}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Email Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-sm font-medium">Email Address</Label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="Enter your email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={`pl-12 h-12 border-2 rounded-xl transition-smooth ${
+                        errors.email 
+                          ? "border-destructive focus:border-destructive" 
+                          : "border-border focus:border-primary"
+                      }`}
+                      disabled={isLoading}
+                    />
+                  </div>
+                  {errors.email && (
+                    <p className="text-sm text-destructive">{errors.email}</p>
+                  )}
+                </div>
+
+                {/* Phone Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="text-sm font-medium">Phone Number</Label>
+                  <div className="relative">
+                    <Phone className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                    <Input
+                      id="phone"
+                      name="phone"
+                      placeholder="+91 9876543210"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className={`pl-12 h-12 border-2 rounded-xl transition-smooth ${
+                        errors.phone 
+                          ? "border-destructive focus:border-destructive" 
+                          : "border-border focus:border-primary"
+                      }`}
+                      disabled={isLoading}
+                    />
+                  </div>
+                  {errors.phone && (
+                    <p className="text-sm text-destructive">{errors.phone}</p>
+                  )}
+                </div>
+
+                {/* Gender Field */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Gender (Optional)</Label>
+                  <Select value={formData.gender} onValueChange={(value) => handleSelectChange("gender", value)}>
+                    <SelectTrigger className={`h-12 border-2 rounded-xl transition-smooth ${
+                      errors.gender 
+                        ? "border-destructive focus:border-destructive" 
+                        : "border-border focus:border-primary"
+                    }`}>
+                      <SelectValue placeholder="Select gender" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Account Type/Role Field */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Account Type</Label>
+                  <Select value={formData.role} onValueChange={(value) => handleSelectChange("role", value)}>
+                    <SelectTrigger className={`h-12 border-2 rounded-xl transition-smooth ${
+                      errors.role 
+                        ? "border-destructive focus:border-destructive" 
+                        : "border-border focus:border-primary"
+                    }`}>
+                      <SelectValue placeholder="Select account type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="customer">
+                        <div className="flex items-center space-x-2">
+                          <User className="w-4 h-4" />
+                          <span>Customer - Browse and purchase sarees</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="cashier">
+                        <div className="flex items-center space-x-2">
+                          <Store className="w-4 h-4" />
+                          <span>Cashier - Handle store transactions</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="admin">
+                        <div className="flex items-center space-x-2">
+                          <Crown className="w-4 h-4" />
+                          <span>Admin - Full system access</span>
+                        </div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {errors.role && (
+                    <p className="text-sm text-destructive">{errors.role}</p>
+                  )}
+                </div>
+
+                {/* Business Name Field - Show only for business/cashier accounts */}
+                {(formData.role === "cashier") && (
+                  <div className="space-y-2">
+                    <Label htmlFor="businessName" className="text-sm font-medium">Business Name</Label>
+                    <div className="relative">
+                      <Store className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                      <Input
+                        id="businessName"
+                        name="businessName"
+                        placeholder="Enter your business name"
+                        value={formData.businessName}
+                        onChange={handleInputChange}
+                        className={`pl-12 h-12 border-2 rounded-xl transition-smooth ${
+                          errors.businessName 
+                            ? "border-destructive focus:border-destructive" 
+                            : "border-border focus:border-primary"
+                        }`}
+                        disabled={isLoading}
+                      />
+                    </div>
+                    {errors.businessName && (
+                      <p className="text-sm text-destructive">{errors.businessName}</p>
+                    )}
+                  </div>
+                )}
+
+                {/* Admin Code Field - Show only for admin accounts */}
+                {formData.role === "admin" && (
+                  <div className="space-y-2">
+                    <Label htmlFor="adminCode" className="text-sm font-medium">Admin Access Code</Label>
+                    <div className="relative">
+                      <Crown className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                      <Input
+                        id="adminCode"
+                        name="adminCode"
+                        type="password"
+                        placeholder="Enter admin access code"
+                        value={formData.adminCode}
+                        onChange={handleInputChange}
+                        className={`pl-12 h-12 border-2 rounded-xl transition-smooth ${
+                          errors.adminCode 
+                            ? "border-destructive focus:border-destructive" 
+                            : "border-border focus:border-primary"
+                        }`}
+                        disabled={isLoading}
+                      />
+                    </div>
+                    {errors.adminCode && (
+                      <p className="text-sm text-destructive">{errors.adminCode}</p>
+                    )}
+                    <p className="text-sm text-muted-foreground">
+                      Contact your system administrator for the admin access code
+                    </p>
+                  </div>
+                )}
+
+                {/* Password Fields */}
+                <div className="space-y-2">
+                  <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                    <Input
+                      id="password"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Create a password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      className={`pl-12 pr-12 h-12 border-2 rounded-xl transition-smooth ${
+                        errors.password 
+                          ? "border-destructive focus:border-destructive" 
+                          : "border-border focus:border-primary"
+                      }`}
+                      disabled={isLoading}
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                      onClick={() => setShowPassword(!showPassword)}
+                      disabled={isLoading}
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                  {errors.password && (
+                    <p className="text-sm text-destructive">{errors.password}</p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="confirmPassword" className="text-sm font-medium">Confirm Password</Label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                    <Input
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Confirm your password"
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
+                      className={`pl-12 pr-12 h-12 border-2 rounded-xl transition-smooth ${
+                        errors.confirmPassword 
+                          ? "border-destructive focus:border-destructive" 
+                          : "border-border focus:border-primary"
+                      }`}
+                      disabled={isLoading}
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      disabled={isLoading}
+                    >
+                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                  {errors.confirmPassword && (
+                    <p className="text-sm text-destructive">{errors.confirmPassword}</p>
+                  )}
+                </div>
+
+                {/* Terms Agreement */}
+                <div className="space-y-2">
+                  <div className="flex items-start space-x-2">
+                    <Checkbox
+                      id="terms"
+                      checked={formData.agreeToTerms}
+                      onCheckedChange={(checked) =>
+                        setFormData(prev => ({ ...prev, agreeToTerms: checked as boolean }))
+                      }
+                      className="mt-1"
+                    />
+                    <Label htmlFor="terms" className="text-sm leading-5">
+                      I agree to the{" "}
+                      <Link to="/terms" className="text-primary hover:text-primary-glow transition-smooth">
+                        Terms & Conditions
+                      </Link>{" "}
+                      and{" "}
+                      <Link to="/privacy" className="text-primary hover:text-primary-glow transition-smooth">
+                        Privacy Policy
+                      </Link>
+                    </Label>
+                  </div>
+                  {errors.agreeToTerms && (
+                    <p className="text-sm text-destructive">{errors.agreeToTerms}</p>
+                  )}
+                </div>
+
+                {/* Submit Error */}
+                {errors.submit && (
+                  <div className="p-4 text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-xl">
+                    {errors.submit}
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <Button 
+                  type="submit" 
+                  className="w-full h-12 text-lg font-semibold gradient-primary text-primary-foreground shadow-elegant hover:shadow-glow transition-smooth rounded-xl" 
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Creating Account..." : "Create Account"}
+                </Button>
+              </form>
+
+              {/* Sign In Link */}
+              <div className="mt-8 text-center">
+                <p className="text-muted-foreground">
+                  Already have an account?{" "}
+                  <Link 
+                    to="/login" 
+                    className="text-primary hover:text-primary-glow font-semibold transition-smooth"
+                  >
+                    Sign in
+                  </Link>
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Footer */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-muted-foreground">
+              © 2025 SilkCraft. Crafted with ❤️ for saree businesses.
+            </p>
+          </div>
         </div>
       </div>
     </div>
