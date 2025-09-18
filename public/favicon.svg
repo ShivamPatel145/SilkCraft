@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Background gradient -->
+  <rect width="32" height="32" rx="6" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative corner accent -->
+  <circle cx="26" cy="6" r="3" fill="url(#accentGradient)" opacity="0.8"/>
+  <circle cx="26" cy="6" r="1.5" fill="#FFD700"/>
+  
+  <!-- Main saree pattern - scaled from navbar logo -->
+  <g transform="translate(16, 16) scale(0.6)">
+    <!-- Flowing saree curves -->
+    <path 
+      d="M-12 0c0-15 15-15 15 0s15-15 15 0-15 15-15 0-15 15-15 0z" 
+      fill="rgba(255,255,255,0.15)"
+      stroke="rgba(255,255,255,0.9)"
+      strokeWidth="1.5"
+    />
+    
+    <!-- Inner decorative curves -->
+    <path 
+      d="M-8 -5c5 0 10 3 10 10s5-10 10-10M-8 5c5 0 10-3 10-10s5 10 10 10" 
+      stroke="rgba(255,255,255,0.7)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      fill="none"
+    />
+    
+    <!-- Center jewel/button -->
+    <circle cx="0" cy="0" r="3" fill="rgba(255,255,255,0.6)"/>
+    <circle cx="0" cy="0" r="1.5" fill="#FFD700"/>
+  </g>
+  
+  <!-- Elegant border accent -->
+  <rect x="1" y="1" width="30" height="30" rx="5" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5"/>
+  
+  <defs>
+    <!-- Background gradient matching primary theme -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1B5E20;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2E7D32;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#388E3C;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Accent gradient for corner decoration -->
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#FFC107;stop-opacity:0.6" />
+    </linearGradient>
+  </defs>
+</svg>
