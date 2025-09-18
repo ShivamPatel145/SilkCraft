@@ -29,12 +29,19 @@ export interface Product {
 }
 
 export const categories = [
-  { id: 'silk', name: 'Silk Sarees', count: 156 },
-  { id: 'cotton', name: 'Cotton Sarees', count: 98 },
-  { id: 'georgette', name: 'Georgette Sarees', count: 67 },
-  { id: 'chiffon', name: 'Chiffon Sarees', count: 45 },
-  { id: 'net', name: 'Net Sarees', count: 34 },
-  { id: 'designer', name: 'Designer Sarees', count: 89 },
+  { id: 'silk', name: 'Silk Sarees', count: 4 },
+  { id: 'cotton', name: 'Cotton Sarees', count: 1 },
+  { id: 'georgette', name: 'Georgette Sarees', count: 1 },
+  { id: 'chiffon', name: 'Chiffon Sarees', count: 1 },
+  { id: 'net', name: 'Net Sarees', count: 1 },
+  { id: 'designer', name: 'Designer Sarees', count: 2 },
+  { id: 'banarasi', name: 'Banarasi Sarees', count: 2 },
+  { id: 'kanjivaram', name: 'Kanjivaram Sarees', count: 1 },
+  { id: 'velvet', name: 'Velvet Sarees', count: 1 },
+  { id: 'organza', name: 'Organza Sarees', count: 1 },
+  { id: 'chanderi', name: 'Chanderi Sarees', count: 1 },
+  { id: 'art-silk', name: 'Art Silk Sarees', count: 1 },
+  { id: 'linen', name: 'Linen Sarees', count: 1 },
 ];
 
 export const colors = [
@@ -48,6 +55,8 @@ export const colors = [
   { id: 'black', name: 'Black', hex: '#000000' },
   { id: 'white', name: 'White', hex: '#FFFFFF' },
   { id: 'gold', name: 'Gold', hex: '#F59E0B' },
+  { id: 'cream', name: 'Cream', hex: '#FEF3C7' },
+  { id: 'turquoise', name: 'Turquoise', hex: '#06B6D4' },
 ];
 
 export const priceRanges = [
@@ -363,6 +372,310 @@ export const products: Product[] = [
     inStock: true,
     stockQuantity: 3,
     tags: ["bridal", "designer", "luxury", "wedding", "reception"]
+  },
+  {
+    id: 9,
+    name: "Mustard Yellow Bandhani Silk",
+    price: 12999,
+    originalPrice: 15999,
+    fabric: "Bandhani Silk",
+    color: "Mustard Yellow",
+    category: "silk",
+    subcategory: "traditional",
+    rating: 4.6,
+    reviews: 85,
+    images: [
+      "/src/assets/Golden_Kanjivaram_Classic.png",
+      "/src/assets/Golden_Kanjivaram_Classic_1.png",
+      "/src/assets/Coral_Pink_Organza_Silk_Embroidered.png",
+    ],
+    description: "Traditional mustard yellow Bandhani silk saree with intricate tie-dye patterns. Handcrafted with love from Gujarat.",
+    features: [
+      "Authentic Bandhani work",
+      "Pure silk fabric",
+      "Traditional tie-dye",
+      "Handcrafted details",
+      "Vibrant colors"
+    ],
+    specifications: {
+      fabric: "100% Pure Silk",
+      weave: "Bandhani Handwork",
+      length: "6.3 meters",
+      width: "1.15 meters",
+      blousePiece: true,
+      careInstructions: ["Dry clean only", "Avoid direct sunlight", "Iron on medium heat"],
+      origin: "Kutch, Gujarat"
+    },
+    isNew: false,
+    inStock: true,
+    stockQuantity: 12,
+    tags: ["traditional", "bandhani", "handcrafted", "gujarati", "festival"]
+  },
+  {
+    id: 10,
+    name: "Deep Purple Velvet Royal",
+    price: 18999,
+    originalPrice: 22999,
+    fabric: "Velvet",
+    color: "Deep Purple",
+    category: "velvet",
+    subcategory: "royal",
+    rating: 4.8,
+    reviews: 62,
+    images: [
+      "/src/assets/Purple_Banarasi_heritage.png",
+      "/src/assets/Purple_Banarasi_heritage_1.png",
+      "/src/assets/Purple_Banarasi_heritage_2.png",
+    ],
+    description: "Majestic deep purple velvet saree with gold zardozi work. Perfect for winter weddings and royal occasions.",
+    features: [
+      "Luxurious velvet fabric",
+      "Gold zardozi embroidery",
+      "Royal appearance",
+      "Winter appropriate",
+      "Heavy border work"
+    ],
+    specifications: {
+      fabric: "Premium Velvet",
+      weave: "Machine embroidered",
+      length: "6.3 meters",
+      width: "1.15 meters",
+      blousePiece: true,
+      careInstructions: ["Dry clean only", "Steam iron carefully", "Store in cool place"],
+      origin: "Lucknow, Uttar Pradesh"
+    },
+    isNew: true,
+    inStock: true,
+    stockQuantity: 8,
+    tags: ["velvet", "royal", "winter", "zardozi", "luxury"]
+  },
+  {
+    id: 11,
+    name: "Rose Pink Organza Floral",
+    price: 7999,
+    originalPrice: 9999,
+    fabric: "Organza",
+    color: "Rose Pink",
+    category: "organza",
+    subcategory: "floral",
+    rating: 4.5,
+    reviews: 95,
+    images: [
+      "/src/assets/Coral_Pink_Organza_Silk_Embroidered.png",
+      "/src/assets/Coral_Pink_Organza_Silk_Embroidered_1.png",
+      "/src/assets/Coral_Pink_Organza_Silk_Embroidered_2.png",
+    ],
+    description: "Delicate rose pink organza saree with beautiful floral embroidery. Light and ethereal for daytime events.",
+    features: [
+      "Lightweight organza",
+      "Floral embroidery",
+      "Soft pastel shade",
+      "Comfortable drape",
+      "Daytime perfect"
+    ],
+    specifications: {
+      fabric: "100% Organza",
+      weave: "Machine embroidered",
+      length: "6.3 meters",
+      width: "1.15 meters",
+      blousePiece: true,
+      careInstructions: ["Hand wash gently", "Air dry", "Iron on low heat"],
+      origin: "Bangalore, Karnataka"
+    },
+    isNew: false,
+    inStock: true,
+    stockQuantity: 22,
+    tags: ["organza", "floral", "pastel", "daytime", "light"]
+  },
+  {
+    id: 12,
+    name: "Black Chanderi Elegance",
+    price: 9999,
+    originalPrice: 12999,
+    fabric: "Chanderi",
+    color: "Black",
+    category: "chanderi",
+    subcategory: "elegant",
+    rating: 4.7,
+    reviews: 78,
+    images: [
+      "/src/assets/Royal_Emerald_Slik.png",
+      "/src/assets/Royal_Emerald_Slik_2.png",
+      "/src/assets/Royal_Emerald_Silk_1.png",
+    ],
+    description: "Sophisticated black Chanderi saree with silver motifs. Timeless elegance for formal occasions.",
+    features: [
+      "Authentic Chanderi weave",
+      "Silver motif work",
+      "Elegant black color",
+      "Formal appropriate",
+      "Lightweight comfort"
+    ],
+    specifications: {
+      fabric: "Chanderi Cotton Silk",
+      weave: "Handloom Chanderi",
+      length: "6.3 meters",
+      width: "1.15 meters",
+      blousePiece: true,
+      careInstructions: ["Gentle wash", "Dry in shade", "Medium heat iron"],
+      origin: "Chanderi, Madhya Pradesh"
+    },
+    isNew: false,
+    inStock: true,
+    stockQuantity: 15,
+    tags: ["chanderi", "formal", "elegant", "silver-work", "traditional"]
+  },
+  {
+    id: 13,
+    name: "Turquoise Blue Art Silk",
+    price: 5999,
+    originalPrice: 7999,
+    fabric: "Art Silk",
+    color: "Turquoise Blue",
+    category: "art-silk",
+    subcategory: "contemporary",
+    rating: 4.4,
+    reviews: 103,
+    images: [
+      "/src/assets/Royal_Emerald_Silk_1.png",
+      "/src/assets/Royal_Emerald_Slik.png",
+      "/src/assets/Royal_Emerald_Slik_2.png",
+    ],
+    description: "Vibrant turquoise blue art silk saree with contemporary print design. Modern style with traditional appeal.",
+    features: [
+      "High-quality art silk",
+      "Contemporary prints",
+      "Vibrant turquoise",
+      "Modern styling",
+      "Affordable luxury"
+    ],
+    specifications: {
+      fabric: "Art Silk",
+      weave: "Power loom",
+      length: "6.3 meters",
+      width: "1.15 meters",
+      blousePiece: true,
+      careInstructions: ["Machine wash cold", "Gentle cycle", "Iron medium heat"],
+      origin: "Varanasi, Uttar Pradesh"
+    },
+    isNew: false,
+    inStock: true,
+    stockQuantity: 28,
+    tags: ["art-silk", "contemporary", "vibrant", "affordable", "modern"]
+  },
+  {
+    id: 14,
+    name: "Cream Tussar Silk Handwoven",
+    price: 11999,
+    originalPrice: 14999,
+    fabric: "Tussar Silk",
+    color: "Cream",
+    category: "silk",
+    subcategory: "handwoven",
+    rating: 4.6,
+    reviews: 71,
+    images: [
+      "/src/assets/Golden_Kanjivaram_Classic.png",
+      "/src/assets/Coral_Pink_Organza_Silk_Embroidered.png",
+      "/src/assets/Purple_Banarasi_heritage.png",
+    ],
+    description: "Natural cream Tussar silk saree with handwoven texture. Eco-friendly and naturally elegant.",
+    features: [
+      "Pure Tussar silk",
+      "Handwoven texture",
+      "Natural cream color",
+      "Eco-friendly fabric",
+      "Unique texture"
+    ],
+    specifications: {
+      fabric: "100% Tussar Silk",
+      weave: "Handloom",
+      length: "6.3 meters",
+      width: "1.15 meters",
+      blousePiece: true,
+      careInstructions: ["Dry clean preferred", "Handle gently", "Store carefully"],
+      origin: "Bhagalpur, Bihar"
+    },
+    isNew: true,
+    inStock: true,
+    stockQuantity: 9,
+    tags: ["tussar", "handwoven", "eco-friendly", "natural", "textured"]
+  },
+  {
+    id: 15,
+    name: "Wine Red Banarasi Brocade",
+    price: 16999,
+    originalPrice: 19999,
+    fabric: "Banarasi Silk",
+    color: "Wine Red",
+    category: "banarasi",
+    subcategory: "brocade",
+    rating: 4.9,
+    reviews: 56,
+    images: [
+      "/src/assets/Purple_Banarasi_heritage.png",
+      "/src/assets/Purple_Banarasi_heritage_1.png",
+      "/src/assets/Golden_Kanjivaram_Classic.png",
+    ],
+    description: "Rich wine red Banarasi silk saree with intricate brocade work. A masterpiece of traditional Indian weaving.",
+    features: [
+      "Authentic Banarasi silk",
+      "Intricate brocade work",
+      "Rich wine color",
+      "Traditional motifs",
+      "Wedding special"
+    ],
+    specifications: {
+      fabric: "Pure Banarasi Silk",
+      weave: "Handloom Brocade",
+      length: "6.3 meters",
+      width: "1.15 meters",
+      blousePiece: true,
+      careInstructions: ["Dry clean only", "Store with muslin cloth", "Avoid folding"],
+      origin: "Varanasi, Uttar Pradesh"
+    },
+    isNew: true,
+    inStock: true,
+    stockQuantity: 6,
+    tags: ["banarasi", "brocade", "traditional", "wedding", "handloom"]
+  },
+  {
+    id: 16,
+    name: "Pastel Green Linen Casual",
+    price: 3999,
+    originalPrice: 5499,
+    fabric: "Linen",
+    color: "Pastel Green",
+    category: "linen",
+    subcategory: "casual",
+    rating: 4.3,
+    reviews: 124,
+    images: [
+      "/src/assets/Royal_Emerald_Silk_1.png",
+      "/src/assets/Coral_Pink_Organza_Silk_Embroidered.png",
+      "/src/assets/Golden_Kanjivaram_Classic_1.png",
+    ],
+    description: "Fresh pastel green linen saree with minimal border. Perfect for summer days and casual outings.",
+    features: [
+      "Pure linen fabric",
+      "Breathable material",
+      "Minimal design",
+      "Summer appropriate",
+      "Easy care"
+    ],
+    specifications: {
+      fabric: "100% Pure Linen",
+      weave: "Plain weave",
+      length: "6.3 meters",
+      width: "1.15 meters",
+      blousePiece: true,
+      careInstructions: ["Machine washable", "Line dry", "Iron while damp"],
+      origin: "Kerala, India"
+    },
+    isNew: false,
+    inStock: true,
+    stockQuantity: 42,
+    tags: ["linen", "casual", "summer", "breathable", "minimal", "eco-friendly"]
   }
 ];
 
